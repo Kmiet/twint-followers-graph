@@ -17,7 +17,8 @@ class UserCache(Cache):
 
   
   def get_processed_count(self):
-    return self.redis.get(self.counter_key)
+    count = self.redis.get(self.counter_key)
+    return (int(count) if count is not None else 0)
 
 
   def increment_processed_count(self, id):
