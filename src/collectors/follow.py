@@ -29,7 +29,7 @@ class FollowCollector:
 
   def run(self):
     username = UserFollowsCache.get_currently_processed(self.cid)
-    if user_id:
+    if username:
       self.__process_one(username)
     
     self.__process_all()
