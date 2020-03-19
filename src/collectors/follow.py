@@ -55,9 +55,10 @@ class FollowCollector:
     self.c.Username = username
     twint.run.Following(self.c)
 
-    Follow.update_user_follows(username, results.copy())
-    UserDataQueue.enque(results)
-    results.clear()
+    if results:
+      Follow.update_user_follows(username, results.copy())
+      UserDataQueue.enque(results)
+      results.clear()
 
 # hacky
 sys.modules["twint.storage.write"].Csv = __handle_twint_csv
