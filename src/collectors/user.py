@@ -70,5 +70,5 @@ class UserCollector:
     UserFollowsQueue.enque(username)
     UserDataCache.increment_processed_count(username)
 
-
+# hacky
 sys.modules["twint.storage.write"].Json = __handle_twint_json

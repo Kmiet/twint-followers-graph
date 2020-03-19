@@ -11,7 +11,7 @@ CHECK_INTERVAL=2
 
 results = []
 
-def __handle_twint_json(obj, config):
+def __handle_twint_csv(obj, config):
   global results
   results.append(obj)
 
@@ -21,9 +21,9 @@ class FollowCollector:
   def __init__(self, collector_id=0):
     self.cid = collector_id
     self.c = twint.Config()
-    self.c.Store_json = True
+    self.c.Store_csv = True
     self.c.User_full = False
-    self.c.Output = "placeholder.json"
+    self.c.Output = "placeholder.csv"
     self.c.Hide_output = True
 
 
@@ -55,9 +55,9 @@ class FollowCollector:
     self.c.Username = username
     twint.run.Following(self.c)
 
-    Follow.update_user_follows(username, results)
+    Follow.update_user_follows(username, results.copy())
     UserDataQueue.enque(results)
     results.clear()
 
-
-sys.modules["twint.storage.write"].Json = __handle_twint_json
+# hacky
+sys.modules["twint.storage.write"].Csv = __handle_twint_csv

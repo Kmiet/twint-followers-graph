@@ -8,7 +8,7 @@ class Cache:
 
 
   def set(self, key, value):
-    self.redis.set(self.prefix + str(key), value)
+    self.redis.set(self.prefix + str(key), str(value))
 
 
   def get(self, key):
