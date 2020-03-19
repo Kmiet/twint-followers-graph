@@ -46,7 +46,7 @@ class UserCollector:
     while self.user_count < MAX_PROCESSED_COUNT:
       username = UserDataQueue.deque()
 
-      if not username:
+      if username is None:
         time.sleep(CHECK_INTERVAL)
       else:
         self.__process_one(username)

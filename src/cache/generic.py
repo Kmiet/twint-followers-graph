@@ -12,4 +12,8 @@ class Cache:
 
 
   def get(self, key):
-    return self.redis.get(self.prefix + str(key)).decode('utf8')
+    val = self.redis.get(self.prefix + str(key))
+    if val is None: 
+      return None
+      
+    return val.decode('utf8')

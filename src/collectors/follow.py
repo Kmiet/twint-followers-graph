@@ -40,7 +40,7 @@ class FollowCollector:
     while retries < MAX_RETRIES:
       username = UserFollowsQueue.deque()
 
-      if not username:
+      if username is None:
         retries += 1
         time.sleep(CHECK_INTERVAL)
       else:

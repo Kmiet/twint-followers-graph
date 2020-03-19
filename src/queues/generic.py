@@ -7,7 +7,11 @@ class Queue:
     self.redis = Redis(port=5102)
 
   def deque(self):
-    return self.redis.rpop(self.key).decode('utf8')
+    val = self.redis.rpop(self.key)
+    if val is None: 
+      return None
+      
+    return val.decode('utf8')
 
   
   def enque(self, *msg):
