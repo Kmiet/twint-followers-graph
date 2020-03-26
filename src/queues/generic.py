@@ -1,5 +1,6 @@
 from redis import Redis
 
+# Changed to set not to duplicate the items
 class Queue:
 
   def __init__(self, suffix=''):
@@ -7,12 +8,12 @@ class Queue:
     self.redis = Redis(port=5102)
 
   def deque(self):
-    val = self.redis.rpop(self.key)
+    val = self.redis.spop(self.key)
     if val is None: 
       return None
       
     return val.decode('utf8')
 
   
-  def enque(self, *msg):
-    self.redis.lpush(self.key, *msg)
+  def enque(self, *item):
+    self.redis.sadd(self.key, *item)

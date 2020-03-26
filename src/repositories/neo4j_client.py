@@ -4,7 +4,8 @@ class Neo4jClient:
   __insatnce__ = None
   
   def __init__(self):
-    self.driver = GraphDatabase.driver('bolt://127.0.0.1', encrypted=False)
+    # self.driver = GraphDatabase.driver('bolt://127.0.0.1', encrypted=False)
+    self.driver = None
 
 
 def getNeo4jClient():

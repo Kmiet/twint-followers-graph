@@ -6,8 +6,8 @@ class UserQueue(Queue):
     super().__init__(suffix='user:')
 
 
-  def enque(self, msgs):
-    super().enque(*msgs)
+  def enque(self, items):
+    super().enque(*items)
 
 
 UserDataQueue = UserQueue()

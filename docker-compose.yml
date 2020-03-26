@@ -1,15 +1,15 @@
 version: '2.0'
 services:
-  neo4j:
-    image: neo4j:4.0
-    ports:
-      - "7474:7474"
-      - "7687:7687"
-    volumes:
-      - ../data/neo4j:/data
-      - ../conf/neo4j:/conf
-    environment:
-      - NEO4J_AUTH=none
+  # neo4j:
+  #   image: neo4j:4.0
+  #   ports:
+  #     - "7474:7474"
+  #     - "7687:7687"
+  #   volumes:
+  #     - ../data/neo4j:/data
+  #     - ../conf/neo4j:/conf
+  #   environment:
+  #     - NEO4J_AUTH=none
 
   redis:
     image: redis:5.0-alpine
