@@ -2,7 +2,7 @@ import os
 import signal
 import argparse
 from multiprocessing import Process
-from collectors import UserCollector, FollowCollector
+from collectors import UserCollector, FollowCollector, TweetCollector
 
 global uprocesses
 global fprocesses
@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
   uprocesses = [Process(target=collect, args=(UserCollector, i, )) for i in range(args.uc)]
   fprocesses = [Process(target=collect, args=(FollowCollector, i, )) for i in range(args.fc)]
-  tprocesses = [Process(target=collect, args=(FollowCollector, i, )) for i in range(args.tc)]
+  tprocesses = [Process(target=collect, args=(TweetCollector, i, )) for i in range(args.tc)]
 
   [child.start() for child in uprocesses]
   [child.start() for child in fprocesses]
