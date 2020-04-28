@@ -2,9 +2,10 @@ import networkx as nx
 from os import listdir
 from os.path import isfile, join
 import json
-import matplotlib
+import matplotlib.pyplot as plt
 import gc
 from graph import FollowerGraph
+import time
 
 x_users = set()
 
@@ -14,8 +15,8 @@ def process_user_file(fpath, graph):
         while line:
             u = json.loads(line)
             x_users.add(u['username'])
-            graph.add_user(u['username'], u)
-
+            graph.add_node(u['username'])
+            
             line = f.readline()
         
         print(fpath, ' file processed.')
@@ -31,8 +32,9 @@ def process_follow_file(fpath, graph):
             follows = json.loads(fls)
             for flw in follows:
                 if flw in x_users:
-                    graph.add_follow(uname, flw)
+                    graph.add_edge(uname, flw)
             line = f.readline()
+          
 
         gc.collect()
 
@@ -48,8 +50,8 @@ def process_follow_file(fpath, graph):
 
 
 def create_graph(dirpath):
-    G = FollowerGraph()
-
+    G = nx.Graph()
+    
     onlyfiles = [(f, join(dirpath, f)) for f in listdir(dirpath) if isfile(join(dirpath, f))]
 
     for _rec in onlyfiles:
@@ -57,6 +59,7 @@ def create_graph(dirpath):
 
         if fname.startswith('users'):
             process_user_file(fpath, G)
+            
 
         gc.collect()
 
@@ -72,5 +75,7 @@ def create_graph(dirpath):
 
 
 if __name__ == '__main__':
-    G = create_graph('../data/collector')
-    nx.draw(G._graph)
+    s = time.time()
+    G = create_graph('./data/collector')
+    nx.write_gexf(G, "test.gexf")
+    print(time.time()-s)
