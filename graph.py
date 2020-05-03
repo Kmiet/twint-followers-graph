@@ -7,8 +7,13 @@ import gc
 from graph import FollowerGraph
 import time
 from infomap import Infomap
+from networkx.algorithms import community
+import matplotlib.pyplot as plt
+import numpy as np
+import random
 
-DATA_PATH = '../data/collector'
+# DATA_PATH = '../data/collector'
+DATA_PATH = './data/collector'
 MENTION_LIMIT = 50
 
 x_users = set()
@@ -150,14 +155,49 @@ def findCommunitiesInfomap(G, v_mentions=False):
     nx.set_node_attributes(G, communities, 'community')
     return im.numTopModules()
 
+def label_propagation_algorithm(G):
+    return community.asyn_lpa_communities(G)
+
+def get_cmap(n, name='hsv'):
+    return plt.cm.get_cmap(name, n)
+
+color = lambda : [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
 
 if __name__ == '__main__':
     s = time.time()
     # G = create_graph(DATA_PATH)
     # nx.write_gexf(G, "full.gexf")
-    G = nx.read_gexf('./full.gexf')
+    G = nx.read_gexf('./smaller100k.gexf')
     print(G.number_of_nodes(), G.number_of_edges())
-    numCommunities = findCommunitiesInfomap(G, v_mentions=True)
-    print("Number of communities found: %d" % numCommunities)
-    #nx.write_gexf(G, "full_mention_comm.gexf")
+    # numCommunities = findCommunitiesInfomap(G, v_mentions=True)
+    # print("Number of communities found: %d" % numCommunities)
+    communities_generator = label_propagation_algorithm(G)
+    top_level_communities = next(communities_generator)
+    next_level_communities = next(communities_generator)
+    # print(sorted(map(sorted, next_level_communities)))
+
+    result = {frozenset(c) for c in communities_generator}
+
+    nodes_community = list(result)
+    print(len(nodes_community))
+
+    # pos = nx.spring_layout(G) 
+
+    # nx.draw(G, pos, edge_color='k',  with_labels=True,
+    #         font_weight='light', node_size= 280, width= 0.9)
+    
+    cmap = get_cmap(len(nodes_community))
+
+    for i in nodes_community:
+        c = tuple(np.random.randint(256, size=3)) + (0,)
+        # nx.draw_networkx_nodes(G, pos, nodelist=i, node_color=cmap(nodes_community.index(i)))
+        for node in i:
+            # print(node)
+            G.nodes[node]['viz'] = {'color': {'r': c[0], 'g': c[1], 'b': c[2], 'a': c[3]}}
+
+    nx.write_gexf(G, 'example100k.gexf')
+
+    # plt.savefig('graphe100k.png')
+    # plt.show()
+
     print(time.time()-s)
