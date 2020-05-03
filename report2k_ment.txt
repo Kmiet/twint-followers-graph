@@ -1,0 +1,47 @@
+=======================================================
+  Infomap v1.1.2 starts at 2020-05-02 21:41:59
+  -> Input network: 
+  -> No file output!
+  -> Configuration: two-level
+                    flow-model = directed
+=======================================================
+  -> Ordinary network input, using the Map Equation for first order network flows
+Calculating global network flow using flow model 'directed'... 
+  -> Using unrecorded teleportation to links. 
+  -> PageRank calculation done in 188 iterations.
+
+  => Sum node flow: 1, sum link flow: 1
+Build internal network with 1924 nodes and 4287 links...
+Calculating one-level codelength... done!
+ -> One-level codelength: 0.232330056
+Calculating entropy rate... done!
+  -> Entropy rate: 0.002710987977
+
+================================================
+Trial 1/1 starting at 2020-05-02 21:41:59
+================================================
+Two-level compression: 13% 0.57% 
+Partitioned to codelength 0.0117785454 + 0.188549963 + 0 = 0.2003285083 in 111 (110 non-trivial) modules.
+
+=> Trial 1/1 finished in 0.016s with codelength 0.200328508
+
+
+================================================
+Summary after 1 trial
+================================================
+Best end modular solution in 2 levels:
+Per level number of modules:         [        111,           0] (sum: 111)
+Per level number of leaf nodes:      [          0,        1924] (sum: 1924)
+Per level average child degree:      [        111,     17.3333] (average: 22.4424)
+Per level codelength for modules:    [0.011778545, 0.000000000] (sum: 0.011778545)
+Per level codelength for leaf nodes: [0.000000000, 0.188549963] (sum: 0.188549963)
+Per level codelength total:          [0.011778545, 0.188549963] (sum: 0.200328508)
+
+1924 2180
+Found 111 top modules with codelength: 0.200329
+Number of communities found: 111
+9.042999744415283
+===================================================
+  Infomap ends at 2020-05-02 21:41:59
+  (Elapsed time: 0.023s)
+===================================================

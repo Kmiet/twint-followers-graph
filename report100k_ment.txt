@@ -1,0 +1,47 @@
+=======================================================
+  Infomap v1.1.2 starts at 2020-05-02 21:39:26
+  -> Input network: 
+  -> No file output!
+  -> Configuration: two-level
+                    flow-model = directed
+=======================================================
+  -> Ordinary network input, using the Map Equation for first order network flows
+Calculating global network flow using flow model 'directed'... 
+  -> Using unrecorded teleportation to links. 
+  -> PageRank calculation done in 184 iterations.
+
+  => Sum node flow: 1, sum link flow: 1
+Build internal network with 99904 nodes and 468172 links...
+Calculating one-level codelength... done!
+ -> One-level codelength: 1.66029305
+Calculating entropy rate... done!
+  -> Entropy rate: 0.5967847322
+
+================================================
+Trial 1/1 starting at 2020-05-02 21:39:27
+================================================
+Two-level compression: 0.026% 0.035% 1.2% 0.063% 
+Partitioned to codelength 0.011546711 + 1.62723648 + 0 = 1.638783186 in 3986 (2169 non-trivial) modules.
+
+=> Trial 1/1 finished in 4.603s with codelength 1.63878319
+
+
+================================================
+Summary after 1 trial
+================================================
+Best end modular solution in 2 levels:
+Per level number of modules:         [       3986,           0] (sum: 3986)
+Per level number of leaf nodes:      [          0,       99904] (sum: 99904)
+Per level average child degree:      [       3986,     25.0637] (average: 177.035)
+Per level codelength for modules:    [0.011546711, 0.000000000] (sum: 0.011546711)
+Per level codelength for leaf nodes: [0.000000000, 1.627236475] (sum: 1.627236475)
+Per level codelength total:          [0.011546711, 1.627236475] (sum: 1.638783186)
+
+100000 123098
+Found 3986 top modules with codelength: 1.638783
+Number of communities found: 3986
+46.009076833724976
+===================================================
+  Infomap ends at 2020-05-02 21:39:32
+  (Elapsed time: 5.488s)
+===================================================

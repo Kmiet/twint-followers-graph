@@ -1,3 +1,6 @@
 **/__pycache__/
-
+full.gexf
+full_follow_comm.gexf
+full_mention_comm.gexf
 test.py
+*.gexf

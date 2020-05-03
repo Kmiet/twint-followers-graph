@@ -2,50 +2,46 @@ import networkx as nx
 from os import listdir
 from os.path import isfile, join
 import json
-# import matplotlib.pyplot as plt
-import gc
+import random
 from graph import FollowerGraph
 import time
 from infomap import Infomap
 
 DATA_PATH = '../data/collector'
-MENTION_LIMIT = 50
+HOW_MANY = 100000
 
 x_users = set()
-#
+x_follows = dict()
 x_mentions = dict()
 
-def process_user_file(fpath, graph):
+
+def process_user_file(fpath):
     with open(fpath, 'r', 1) as f:
         line = f.readline()
         while line:
             u = json.loads(line)
             x_users.add(u['username'])
-            graph.add_node(u['username'])
+            x_follows[u['username']] = []
             
             line = f.readline()
         
         print(fpath, ' file processed.')
-        f.close()
 
 
-def process_follow_file(fpath, graph):
+def process_follow_file(fpath):
     with open(fpath, 'r', 1) as f:
         line = f.readline()
         i = 0
         while line:
             uname, fls = line.split(' ', 1)
             follows = json.loads(fls)
-            for flw in follows:
-                if flw in x_users:
-                    graph.add_edge(uname, flw)
+            if uname in x_users:
+                for flw in follows:
+                    if flw in x_users:
+                        x_follows[uname].append(flw)
             line = f.readline()
-          
-
-        gc.collect()
 
         print(fpath, ' file processed.')
-        f.close()
 
 
 def process_mention_file(fpath, G):
@@ -53,19 +49,12 @@ def process_mention_file(fpath, G):
         line = f.readline()
         while line:
             u, smth = line.split('@')[1].split('"')
-            ms = smth.split('[')[1]
-            if not ms.startswith(']'):
-                ms = ms.split(']')[0].split(',')
-            else:
-                ms = []
-
+            ms = smth.split('[')[1].split(']')[0].split(',')
             if u in G.nodes:
                 x_mentions[u] = []
-                _curr = 0
                 for m in ms:
-                    if u != m and _curr < MENTION_LIMIT:
+                    if u != m:
                         x_mentions[u].append(m)
-                        _curr += 1
 
             line = f.readline()
 
@@ -77,31 +66,56 @@ def read_mentions(dirpath, G):
 
         if fname.startswith('mentions'):
             process_mention_file(fpath, G)
-            print(fpath, ' file processed.')
-            gc.collect()
 
 
 def create_graph(dirpath):
     G = nx.Graph()
-    
     onlyfiles = [(f, join(dirpath, f)) for f in listdir(dirpath) if isfile(join(dirpath, f))]
 
     for _rec in onlyfiles:
         fname, fpath = _rec
 
         if fname.startswith('users'):
-            process_user_file(fpath, G)
-            
-
-        gc.collect()
+            process_user_file(fpath)
 
     for _rec in onlyfiles:
         fname, fpath = _rec
 
         if fname.startswith('follows'):
-            process_follow_file(fpath, G)
+            process_follow_file(fpath)
 
-        gc.collect()
+    u_left = HOW_MANY
+
+    graph_users = []
+    que = []
+    u_processed = set()
+    uname = random.sample(x_users, 1)[0]
+    que.append(uname)
+    u_processed.add(uname)
+    u_left -= 1
+
+    while que:
+        u_top = que.pop()
+        G.add_node(u_top)
+        graph_users.append(u_top)
+
+        for followed in x_follows[u_top]:
+            if not followed in u_processed and u_left > 0:
+                que.append(followed)
+                u_processed.add(followed)
+                u_left -= 1
+
+        if u_left > 0 and len(que) == 0:
+            while u_top in u_processed:
+                u_top = random.sample(x_users, 1)[0]
+            que.append(u_top)
+            u_processed.add(u_top)
+            u_left -= 1
+
+    for node in u_processed:
+        for followed in x_follows[node]:
+            if followed in u_processed:
+                G.add_edge(node, followed)
 
     return G
 
@@ -111,8 +125,6 @@ def findCommunitiesInfomap(G, v_mentions=False):
 
     if v_mentions:
         read_mentions(DATA_PATH, G)
-    
-    return 0
 
     user_node = dict()
     node_user = []
@@ -154,10 +166,10 @@ def findCommunitiesInfomap(G, v_mentions=False):
 if __name__ == '__main__':
     s = time.time()
     # G = create_graph(DATA_PATH)
-    # nx.write_gexf(G, "full.gexf")
-    G = nx.read_gexf('./full.gexf')
+    # nx.write_gexf(G, "smaller100k.gexf")
+    G = nx.read_gexf('./smaller100k.gexf')
     print(G.number_of_nodes(), G.number_of_edges())
-    numCommunities = findCommunitiesInfomap(G, v_mentions=True)
+    numCommunities = findCommunitiesInfomap(G, v_mentions=False)
     print("Number of communities found: %d" % numCommunities)
-    #nx.write_gexf(G, "full_mention_comm.gexf")
+    nx.write_gexf(G, "smaller100k_follow_comm.gexf")
     print(time.time()-s)

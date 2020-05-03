@@ -1,0 +1,45 @@
+=======================================================
+  Infomap v1.1.2 starts at 2020-05-02 21:51:35
+  -> Input network: 
+  -> No file output!
+  -> Configuration: two-level
+                    flow-model = undirected
+=======================================================
+  -> Ordinary network input, using the Map Equation for first order network flows
+Calculating global network flow using flow model 'undirected'... 
+  -> Using undirected links.
+  => Sum node flow: 1, sum link flow: 1
+Build internal network with 99904 nodes and 468172 links...
+Calculating one-level codelength... done!
+ -> One-level codelength: 9.44159813
+Calculating entropy rate... done!
+  -> Entropy rate: 0.6772552697
+
+================================================
+Trial 1/1 starting at 2020-05-02 21:51:36
+================================================
+Two-level compression: 0.00038% 0% 
+Partitioned to codelength 6.18364698e-05 + 9.44150077 + 0 = 9.441562603 in 27 modules.
+
+=> Trial 1/1 finished in 1.15s with codelength 9.4415626
+
+
+================================================
+Summary after 1 trial
+================================================
+Best end modular solution in 2 levels:
+Per level number of modules:         [         27,           0] (sum: 27)
+Per level number of leaf nodes:      [          0,       99904] (sum: 99904)
+Per level average child degree:      [         27,     3700.15] (average: 3699.16)
+Per level codelength for modules:    [0.000061836, 0.000000000] (sum: 0.000061836)
+Per level codelength for leaf nodes: [0.000000000, 9.441500767] (sum: 9.441500767)
+Per level codelength total:          [0.000061836, 9.441500767] (sum: 9.441562603)
+
+100000 123098
+Found 27 top modules with codelength: 9.441563
+Number of communities found: 27
+42.432973861694336
+===================================================
+  Infomap ends at 2020-05-02 21:51:37
+  (Elapsed time: 1.746s)
+===================================================
