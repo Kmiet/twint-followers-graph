@@ -1,0 +1,1 @@
+communities with size around 0.05% of all graph nodes

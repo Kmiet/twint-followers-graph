@@ -1,47 +1,45 @@
 =======================================================
-  Infomap v1.1.2 starts at 2020-05-02 21:49:53
+  Infomap v1.1.2 starts at 2020-05-03 22:15:35
   -> Input network: 
   -> No file output!
   -> Configuration: two-level
-                    flow-model = directed
+                    flow-model = undirected
 =======================================================
   -> Ordinary network input, using the Map Equation for first order network flows
-Calculating global network flow using flow model 'directed'... 
-  -> Using unrecorded teleportation to links. 
-  -> PageRank calculation done in 88 iterations.
-
+Calculating global network flow using flow model 'undirected'... 
+  -> Using undirected links.
   => Sum node flow: 1, sum link flow: 1
 Build internal network with 1550 nodes and 2180 links...
 Calculating one-level codelength... done!
- -> One-level codelength: 9.46655255
+ -> One-level codelength: 8.11100686
 Calculating entropy rate... done!
-  -> Entropy rate: 0.6069061868
+  -> Entropy rate: 3.49367345
 
 ================================================
-Trial 1/1 starting at 2020-05-02 21:49:53
+Trial 1/1 starting at 2020-05-03 22:15:35
 ================================================
-Two-level compression: 27% 0.26% 
-Partitioned to codelength 1.18388025 + 5.71429652 + 0 = 6.89817677 in 57 (29 non-trivial) modules.
+Two-level compression: 26% 0.42% 
+Partitioned to codelength 0.878801973 + 5.09072136 + 0 = 5.96952333 in 22 modules.
 
-=> Trial 1/1 finished in 0.007s with codelength 6.89817677
+=> Trial 1/1 finished in 0.006s with codelength 5.96952333
 
 
 ================================================
 Summary after 1 trial
 ================================================
 Best end modular solution in 2 levels:
-Per level number of modules:         [         57,           0] (sum: 57)
+Per level number of modules:         [         22,           0] (sum: 22)
 Per level number of leaf nodes:      [          0,        1550] (sum: 1550)
-Per level average child degree:      [         57,      27.193] (average: 28.2502)
-Per level codelength for modules:    [1.183880251, 0.000000000] (sum: 1.183880251)
-Per level codelength for leaf nodes: [0.000000000, 5.714296518] (sum: 5.714296518)
-Per level codelength total:          [1.183880251, 5.714296518] (sum: 6.898176770)
+Per level average child degree:      [         22,     70.4545] (average: 69.7764)
+Per level codelength for modules:    [0.878801973, 0.000000000] (sum: 0.878801973)
+Per level codelength for leaf nodes: [0.000000000, 5.090721357] (sum: 5.090721357)
+Per level codelength total:          [0.878801973, 5.090721357] (sum: 5.969523330)
 
 1924 2180
-Found 57 top modules with codelength: 6.898177
-Number of communities found: 57
-0.22000551223754883
+Found 22 top modules with codelength: 5.969523
+Number of communities found: 22
+0.22500348091125488
 ===================================================
-  Infomap ends at 2020-05-02 21:49:53
-  (Elapsed time: 0.01s)
+  Infomap ends at 2020-05-03 22:15:35
+  (Elapsed time: 0.009s)
 ===================================================

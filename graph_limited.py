@@ -121,7 +121,7 @@ def create_graph(dirpath):
 
 
 def findCommunitiesInfomap(G, v_mentions=False):
-    im = Infomap("--two-level --flow-model directed")
+    im = Infomap("--two-level --flow-model undirected")
 
     if v_mentions:
         read_mentions(DATA_PATH, G)
@@ -167,9 +167,9 @@ if __name__ == '__main__':
     s = time.time()
     # G = create_graph(DATA_PATH)
     # nx.write_gexf(G, "smaller100k.gexf")
-    G = nx.read_gexf('./smaller100k.gexf')
+    G = nx.read_gexf('./smaller2k.gexf')
     print(G.number_of_nodes(), G.number_of_edges())
     numCommunities = findCommunitiesInfomap(G, v_mentions=False)
     print("Number of communities found: %d" % numCommunities)
-    nx.write_gexf(G, "smaller100k_follow_comm.gexf")
+    nx.write_gexf(G, "smaller2k_follow_comm.gexf")
     print(time.time()-s)
