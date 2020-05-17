@@ -3,7 +3,7 @@ import json
 
 comm_users = dict()
 
-FNAME = 'smaller100k_mention_comm'
+FNAME = 'full_mention_comm'
 
 if __name__ == '__main__':
     G = nx.read_gexf('./%s.gexf' % FNAME)

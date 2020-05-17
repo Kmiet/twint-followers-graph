@@ -1,0 +1,2 @@
+Avg. of all: 0.017463201377616994
+Avg. of nonzero coefs: 0.40548446879845035
